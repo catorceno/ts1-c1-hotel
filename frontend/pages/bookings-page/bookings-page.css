@@ -1,0 +1,26 @@
+* {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.bookings-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.bookings-page__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bookings-page__content {
+  flex: 1;
+}
+
+.bookings-page__footer {
+  color: var(--color-gray-500);
+}
