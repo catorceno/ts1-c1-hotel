@@ -8,12 +8,27 @@ public class GuestRepository : IGuestRepository
 
     public async Task<Guest> Add(Guest guest)
     {
-        var exists = await _client.From<Guest>().Where(g => g.Ci == guest.Ci).Get();
-        if(exists.Models.Any())
-            throw new Exception($"Se encontró registrado un húesped con el mismo CI: {guest.Ci}.");
-        
+        var foundGuest = await _client.From<Guest>().Where(g => g.Ci == guest.Ci).Get();
+        var existingGuest = foundGuest.Models.FirstOrDefault();
+
+        if (existingGuest != null)
+        {
+            if (existingGuest.Name == guest.Name &&
+                existingGuest.Email == guest.Email &&
+                existingGuest.Phone == guest.Phone)
+            {
+                return existingGuest;
+            }
+
+            throw new Exception($"Ya existe un huésped con CI {guest.Ci}, pero los datos no coinciden.");
+        }
+
         var result = await _client.From<Guest>().Insert(guest);
 
-        return result.Models.First();
+        var insertedGuest = result.Models.FirstOrDefault();
+        if(insertedGuest == null)
+            throw new Exception("Error al insertar huésped.");
+
+        return insertedGuest;
     }
 }

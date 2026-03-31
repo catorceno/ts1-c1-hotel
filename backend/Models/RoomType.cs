@@ -13,10 +13,10 @@ public class RoomType : BaseModel
     [Column("capacity")]
     public int Capacity { get; set; }
 
-    [Column("email")]
+    [Column("price")]
     public decimal Price { get; set; }
 
-    [Column("phone")]
+    [Column("description")]
     public string Description { get; set; }
 
     [Column("created_at")]
